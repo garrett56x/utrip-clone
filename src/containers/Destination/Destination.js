@@ -29,7 +29,7 @@ const scrollToRefObject = (ref) =>
 
 export default function Destination() {
   const [destinationState, destinationDispatch] = useDestination();
-  const [favoritesState] = useFavorites();
+  const [favoritesState, favoritesDispatch] = useFavorites();
 
   const [showMap, setShowMap] = useState(false);
   const [search, setSearch] = useState("");
@@ -72,7 +72,8 @@ export default function Destination() {
   const { destinationSlug } = useParams();
   useEffect(() => {
     destinationDispatch({ type: "change", slug: destinationSlug });
-  }, [destinationSlug, destinationDispatch]);
+    favoritesDispatch({ type: "fetch", destination: destinationSlug });
+  }, [destinationSlug, destinationDispatch, favoritesDispatch]);
 
   return (
     <div>

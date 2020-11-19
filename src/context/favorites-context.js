@@ -24,18 +24,21 @@ function favoritesReducer(state, action) {
 
       return { ...state, favorites: newFavorites };
     }
+    case "fetch": {
+      const { destination } = action;
+      const destinationFavorites =
+        JSON.parse(localStorage.getItem(`${destination}-favorites`)) || [];
+      return { ...state, destination, favorites: destinationFavorites };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
   }
 }
 function FavoritesProvider({ children }) {
-  const destination = "seattle-wa";
-  const destinationFavorites =
-    JSON.parse(localStorage.getItem(`${destination}-favorites`)) || [];
   const [state, dispatch] = React.useReducer(favoritesReducer, {
-    destination: destination,
-    favorites: destinationFavorites,
+    destination: "",
+    favorites: [],
   });
   return (
     <FavoritesStateContext.Provider value={state}>
