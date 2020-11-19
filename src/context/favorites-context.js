@@ -29,7 +29,8 @@ function favoritesReducer(state, action) {
     }
   }
 }
-function FavoritesProvider({ children, destination }) {
+function FavoritesProvider({ children }) {
+  const destination = "seattle-wa";
   const destinationFavorites =
     JSON.parse(localStorage.getItem(`${destination}-favorites`)) || [];
   const [state, dispatch] = React.useReducer(favoritesReducer, {

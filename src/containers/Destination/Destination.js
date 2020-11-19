@@ -8,10 +8,9 @@ import {
   Link,
 } from "react-router-dom";
 import { StickyContainer, Sticky } from "react-sticky";
+import { useDestination } from "../../context/destination-context";
 import { useFavorites } from "../../context/favorites-context";
 import useWindowDimensions from "../../hooks/windowDimensions";
-// @ts-ignore
-import destinations from "../../data/destinations";
 // @ts-ignore
 import pois from "../../data/pois";
 // @ts-ignore
@@ -29,15 +28,17 @@ const scrollToRefObject = (ref) =>
   });
 
 export default function Destination() {
-  const [favorites] = useFavorites();
+  const [destinationState, destinationDispatch] = useDestination();
+  const [favoritesState] = useFavorites();
+
   const [showMap, setShowMap] = useState(false);
   const [search, setSearch] = useState("");
   const [items, setItems] = useState(pois);
-  const { destinationSlug } = useParams();
+
   const { width } = useWindowDimensions();
-  const destination = destinations.filter(
-    (destination) => destination.slug === destinationSlug
-  )[0];
+
+  const { destination } = destinationState;
+  const { favorites } = favoritesState;
 
   const columns = width >= 1200 ? 4 : 3;
   let { path, url } = useRouteMatch();
@@ -60,13 +61,18 @@ export default function Destination() {
 
     if (favoritesActive) {
       const favoriteItems = searchedItems.filter(
-        (item) => favorites.favorites.indexOf(item.slug) >= 0
+        (item) => favorites.indexOf(item.slug) >= 0
       );
       setItems(favoriteItems);
     } else {
       setItems(searchedItems);
     }
-  }, [favorites.favorites, favoritesActive, search]);
+  }, [favorites, favoritesActive, search]);
+
+  const { destinationSlug } = useParams();
+  useEffect(() => {
+    destinationDispatch({ type: "change", slug: destinationSlug });
+  }, [destinationSlug, destinationDispatch]);
 
   return (
     <div>
