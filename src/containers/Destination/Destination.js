@@ -8,7 +8,7 @@ import {
   Link,
 } from "react-router-dom";
 import { StickyContainer, Sticky } from "react-sticky";
-import { FavoritesProvider } from "../../context/favorites-context";
+import { useFavorites } from "../../context/favorites-context";
 import useWindowDimensions from "../../hooks/windowDimensions";
 // @ts-ignore
 import destinations from "../../data/destinations";
@@ -29,6 +29,7 @@ const scrollToRefObject = (ref) =>
   });
 
 export default function Destination() {
+  const [favorites] = useFavorites();
   const [showMap, setShowMap] = useState(false);
   const [search, setSearch] = useState("");
   const [items, setItems] = useState(pois);
@@ -44,24 +45,31 @@ export default function Destination() {
   const favoritesActive = useRouteMatch({
     path: url + "/favorites",
     exact: true,
-  });
+  })
+    ? true
+    : false;
   let thingsToDoActive = true;
   if (favoritesActive) {
     thingsToDoActive = false;
   }
 
-  const onSearchChange = (e) => {
-    const newVal = e.target.value;
-    setSearch(newVal);
-    const itemSearch = pois.filter((poi) =>
-      poi.name.toLowerCase().includes(newVal.toLowerCase())
+  useEffect(() => {
+    const searchedItems = pois.filter((poi) =>
+      poi.name.toLowerCase().includes(search.toLowerCase())
     );
 
-    setItems(itemSearch);
-  };
+    if (favoritesActive) {
+      const favoriteItems = searchedItems.filter(
+        (item) => favorites.favorites.indexOf(item.slug) >= 0
+      );
+      setItems(favoriteItems);
+    } else {
+      setItems(searchedItems);
+    }
+  }, [favorites.favorites, favoritesActive, search]);
 
   return (
-    <FavoritesProvider destination={destination.slug}>
+    <div>
       <div
         className={styles.hero}
         style={{ backgroundImage: `url(${destination.image})` }}
@@ -70,7 +78,10 @@ export default function Destination() {
       </div>
       <div className={styles.navigationWrapper}>
         <div className={styles.navigation}>
-          <MobileFilters width={width} searchFunction={onSearchChange} />
+          <MobileFilters
+            width={width}
+            searchFunction={(e) => setSearch(e.target.value)}
+          />
           <div className={styles.navigationLeft}>
             <Link to={url}>
               <button
@@ -99,7 +110,7 @@ export default function Destination() {
                 aria-label="Search"
                 className={styles.search}
                 value={search}
-                onChange={onSearchChange}
+                onChange={(e) => setSearch(e.target.value)}
               />
             ) : null}
           </div>
@@ -108,7 +119,7 @@ export default function Destination() {
       </div>
       <div className={styles.contentWrapper}>
         <Switch>
-          <Route exact path={path}>
+          <Route exact path={[path, `${path}/favorites`]}>
             <StickyContainer
               className={`${styles.itemsWrapper} ${
                 showMap ? styles.openMap : ""
@@ -118,30 +129,7 @@ export default function Destination() {
                 items={items}
                 columns={columns}
                 showMap={showMap}
-                favoritesGrid={false}
-              />
-              {showMap && width >= 800 ? (
-                <Sticky>
-                  {({ style }) => (
-                    <div style={{ ...style }}>
-                      <MapWrapper items={items} />
-                    </div>
-                  )}
-                </Sticky>
-              ) : null}
-            </StickyContainer>
-          </Route>
-          <Route exact path={`${path}/favorites`}>
-            <StickyContainer
-              className={`${styles.itemsWrapper} ${
-                showMap ? styles.openMap : ""
-              }`}
-            >
-              <ItemGrid
-                items={items}
-                columns={columns}
-                showMap={showMap}
-                favoritesGrid={true}
+                favoritesGrid={favoritesActive}
               />
               {showMap && width >= 800 ? (
                 <Sticky>
@@ -164,7 +152,7 @@ export default function Destination() {
           </Route>
         </Switch>
       </div>
-    </FavoritesProvider>
+    </div>
   );
 }
 
