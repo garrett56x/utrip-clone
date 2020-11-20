@@ -10,6 +10,7 @@ import {
 import { StickyContainer, Sticky } from "react-sticky";
 import { useDestination } from "../../context/destination-context";
 import { useFavorites } from "../../context/favorites-context";
+import { usePreferences } from "../../context/preferences-context";
 import useWindowDimensions from "../../hooks/windowDimensions";
 import ItemGrid from "../../components/ItemGrid/ItemGrid";
 import ItemDetails from "../../components/ItemDetails/ItemDetails";
@@ -32,6 +33,7 @@ const scrollToRefObject = (ref) =>
 export default function Destination() {
   const [destinationState, destinationDispatch] = useDestination();
   const [favoritesState, favoritesDispatch] = useFavorites();
+  const [preferencesState] = usePreferences();
 
   const [showMap, setShowMap] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -42,6 +44,7 @@ export default function Destination() {
 
   const { destination } = destinationState;
   const { favorites } = favoritesState;
+  const { sliders, filters } = preferencesState;
 
   const columns = width >= 1200 ? 4 : 3;
   let { path, url } = useRouteMatch();
@@ -70,7 +73,24 @@ export default function Destination() {
     } else {
       setItems(searchedItems);
     }
-  }, [favorites, favoritesActive, search]);
+
+    if (filters.length) {
+      const filteredItems = pois.filter(
+        (poi) => filters.indexOf(poi.category) >= 0
+      );
+
+      setItems(filteredItems);
+    }
+  }, [favorites, favoritesActive, search, filters]);
+
+  // Randomizing order of items to fake sliders
+  useEffect(() => {
+    const shuffledItems = items.sort(function (a, b) {
+      return 0.5 - Math.random();
+    });
+
+    setItems(shuffledItems);
+  }, [sliders]);
 
   const { destinationSlug } = useParams();
   useEffect(() => {
