@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactSlider from "react-slider";
 import { usePreferences } from "../../../context/preferences-context";
 import useWindowDimensions from "../../../hooks/windowDimensions";
@@ -6,9 +6,11 @@ import useWindowDimensions from "../../../hooks/windowDimensions";
 import styles from "./Slider.module.scss";
 import colors from "../../../styles/categoryColors";
 
-export default function Slider({ category, label }) {
+export default function Slider({ category, label, filtering }) {
   const [preferencesState, preferencesDispatch] = usePreferences();
+  const [active, setActive] = useState(true);
   const sliderVal = preferencesState.sliders[category];
+  const { filters } = preferencesState;
 
   const { width } = useWindowDimensions();
 
@@ -20,12 +22,23 @@ export default function Slider({ category, label }) {
     });
   };
 
+  useEffect(() => {
+    if (filters.length && filters.indexOf(category) < 0) {
+      setActive(false);
+    } else {
+      setActive(true);
+    }
+  }, [filters, category]);
+
   return (
     <div className={styles.sliderWrapper}>
       {width >= 800 ? (
         <button
-          className={styles.label}
+          className={`${active ? "" : styles.inactive} ${styles.label}`}
           style={{ backgroundColor: colors[category] }}
+          onClick={() => {
+            preferencesDispatch({ type: "toggleCategory", category });
+          }}
         >
           {label}
         </button>
@@ -33,13 +46,14 @@ export default function Slider({ category, label }) {
         <p className={styles.label}>{label}</p>
       )}
       <ReactSlider
-        className={styles.slider}
+        className={`${filtering ? styles.inactive : ""} ${styles.slider}`}
         thumbClassName={styles.sliderThumb}
         trackClassName={styles.sliderTrack}
         min={1}
         max={10}
         defaultValue={sliderVal}
         onChange={handleChange}
+        disabled={filtering}
         renderTrack={(props) => {
           props.style.background = colors[category];
           if (props.key.slice(-2) == "-1") {

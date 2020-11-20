@@ -12,6 +12,22 @@ function preferencesReducer(state, action) {
 
       return { ...state, sliders: updatedSliders };
     }
+    case "toggleCategory": {
+      const { category } = action;
+      let updatedFilters = [...state.filters];
+      if (updatedFilters.indexOf(category) >= 0) {
+        updatedFilters.splice(updatedFilters.indexOf(category), 1);
+      } else {
+        updatedFilters.push(category);
+      }
+
+      // TODO: Find a more dynamic way of doing this
+      if (updatedFilters.length === 7) {
+        updatedFilters = [];
+      }
+
+      return { ...state, filters: updatedFilters };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -30,6 +46,7 @@ function PreferencesProvider({ children }) {
       food: 5,
       nightlife: 5,
     },
+    filters: [],
   });
   return (
     <PreferencesStateContext.Provider value={state}>

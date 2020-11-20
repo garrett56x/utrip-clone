@@ -41,6 +41,12 @@
     margin-right: 0;
   }
 
+  .slider {
+    &.inactive {
+      opacity: 0.5;
+    }
+  }
+
   .label {
     color: $white;
     border: none;
@@ -48,7 +54,10 @@
     cursor: pointer;
     white-space: nowrap;
     padding: 4px;
-    font-size: 12px;
+    font-size: 11px;
     margin-bottom: 10px;
+    &.inactive {
+      opacity: 0.5;
+    }
   }
 }
