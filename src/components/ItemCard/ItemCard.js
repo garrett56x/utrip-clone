@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useFavorites } from "../../context/favorites-context";
 // @ts-ignore
 import styles from "./ItemCard.module.scss";
@@ -7,7 +7,7 @@ import colors from "../../styles/categoryColors";
 import { Favorite } from "@material-ui/icons";
 
 export default function ItemCard({ item, size }) {
-  let { url } = useRouteMatch();
+  let { destinationSlug } = useParams();
   const [favorites, favoritesDispatch] = useFavorites();
   const favorite = favorites.favorites.indexOf(item.slug) >= 0;
 
@@ -18,7 +18,7 @@ export default function ItemCard({ item, size }) {
 
   return (
     <Link
-      to={`${url}/${item.slug}`}
+      to={`/${destinationSlug}/${item.slug}`}
       className={`${styles.itemCardWrapper} ${styles[size]}`}
       style={{ borderColor: colors[item.category] }}
       aria-label={item.name}
