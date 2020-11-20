@@ -11,15 +11,16 @@ import { StickyContainer, Sticky } from "react-sticky";
 import { useDestination } from "../../context/destination-context";
 import { useFavorites } from "../../context/favorites-context";
 import useWindowDimensions from "../../hooks/windowDimensions";
-// @ts-ignore
-import pois from "../../data/pois";
-// @ts-ignore
-import styles from "./Destination.module.scss";
 import ItemGrid from "../../components/ItemGrid/ItemGrid";
 import ItemDetails from "../../components/ItemDetails/ItemDetails";
 import Map from "../../components/Map/Map";
 import MobileFilters from "../../components/MobileFilters/MobileFilters";
-import { Room } from "@material-ui/icons";
+import Modal from "../../components/Modal/Modal";
+// @ts-ignore
+import pois from "../../data/pois";
+// @ts-ignore
+import styles from "./Destination.module.scss";
+import { Room, Tune } from "@material-ui/icons";
 
 const scrollToRefObject = (ref) =>
   window.scrollTo({
@@ -32,6 +33,7 @@ export default function Destination() {
   const [favoritesState, favoritesDispatch] = useFavorites();
 
   const [showMap, setShowMap] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [search, setSearch] = useState("");
   const [items, setItems] = useState(pois);
 
@@ -75,8 +77,19 @@ export default function Destination() {
     favoritesDispatch({ type: "fetch", destination: destinationSlug });
   }, [destinationSlug, destinationDispatch, favoritesDispatch]);
 
+  // useEffect(() => {
+  //   if (showModal) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflow = "";
+  //   }
+  // }, [showModal]);
+
   return (
     <div>
+      <Modal show={showModal} toggle={setShowModal} title="Interests">
+        This is a modal
+      </Modal>
       <div
         className={styles.hero}
         style={{ backgroundImage: `url(${destination.image})` }}
@@ -121,7 +134,20 @@ export default function Destination() {
               />
             ) : null}
           </div>
-          <MapToggle showMap={showMap} setShowMap={setShowMap} width={width} />
+          <div className={styles.buttonWrapper}>
+            <button
+              className={styles.interestsButton}
+              onClick={() => setShowModal(true)}
+            >
+              <Tune className={styles.slidersIcon} />
+              Interests
+            </button>
+            <MapToggle
+              showMap={showMap}
+              setShowMap={setShowMap}
+              width={width}
+            />
+          </div>
         </div>
       </div>
       <div className={styles.contentWrapper}>

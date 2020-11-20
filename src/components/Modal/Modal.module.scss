@@ -1,0 +1,43 @@
+@import "../../styles/colors.scss";
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+}
+
+.header,
+.footer {
+  color: $white;
+  background-color: $dark-grey;
+  display: flex;
+  padding: 12px;
+}
+
+.header {
+  justify-content: space-between;
+}
+.cancel {
+  color: $white;
+  border: none;
+  background: transparent;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.footer {
+  justify-content: flex-end;
+}
+.apply {
+  color: $utrip-blue;
+  border: none;
+  background: transparent;
+}

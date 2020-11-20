@@ -45,8 +45,25 @@
   padding-bottom: 4px;
 }
 
-.mapToggle {
-  margin-left: auto;
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.interestsButton {
+  color: $white;
+  background-color: $dark-grey;
+  border-radius: 20px;
+  border: none;
+  display: flex;
+  align-items: center;
+  padding: 8px 25px;
+  outline: none;
+}
+.slidersIcon {
+  font-size: 20px;
+  margin-right: 4px;
 }
 
 .contentWrapper {
@@ -88,11 +105,19 @@
     flex-direction: row;
   }
 
+  .interestsButton {
+    display: none;
+  }
+
   .search {
     border: none;
     background-color: #e8e9e8;
     padding: 8px;
     outline: none;
+  }
+
+  .buttonWrapper {
+    margin-left: auto;
   }
 
   .contentWrapper {
