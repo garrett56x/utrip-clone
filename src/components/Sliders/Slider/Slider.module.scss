@@ -18,16 +18,37 @@
 }
 
 .sliderTrack {
-  height: 10px;
+  height: 8px;
   border-radius: 5px;
 }
 
 .sliderThumb {
-  height: 16px;
-  width: 16px;
+  height: 14px;
+  width: 14px;
   border-radius: 50%;
-  border: solid $white 2px;
+  border: solid $white 1px;
   outline: none;
   cursor: pointer;
   box-shadow: 2px 2px 2px #888888;
+}
+
+@media only screen and (min-width: 800px) {
+  .sliderWrapper {
+    flex: 1;
+    margin-right: 10px;
+  }
+  .sliderWrapper:last-child {
+    margin-right: 0;
+  }
+
+  .label {
+    color: $white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 4px;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
 }

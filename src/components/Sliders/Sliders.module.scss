@@ -2,3 +2,12 @@
   max-width: 500px;
   margin: 0 auto;
 }
+
+@media only screen and (min-width: 800px) {
+  .sliders {
+    max-width: unset;
+    margin: 0;
+    display: flex;
+    padding-top: 10px;
+  }
+}

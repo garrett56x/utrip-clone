@@ -147,6 +147,13 @@
   }
 }
 
+@media only screen and (min-width: 800px) {
+  .navigationWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 @media only screen and (min-width: 1200px) {
   .mapWrapper {
     width: 500px;

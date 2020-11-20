@@ -150,6 +150,11 @@ export default function Destination() {
             />
           </div>
         </div>
+        {width >= 800 ? (
+          <div className={styles.preferences}>
+            <Sliders />
+          </div>
+        ) : null}
       </div>
       <div className={styles.contentWrapper}>
         <Switch>

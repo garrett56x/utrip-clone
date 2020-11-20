@@ -1,6 +1,7 @@
 import React from "react";
 import ReactSlider from "react-slider";
 import { usePreferences } from "../../../context/preferences-context";
+import useWindowDimensions from "../../../hooks/windowDimensions";
 // @ts-ignore
 import styles from "./Slider.module.scss";
 import colors from "../../../styles/categoryColors";
@@ -8,6 +9,8 @@ import colors from "../../../styles/categoryColors";
 export default function Slider({ category, label }) {
   const [preferencesState, preferencesDispatch] = usePreferences();
   const sliderVal = preferencesState.sliders[category];
+
+  const { width } = useWindowDimensions();
 
   const handleChange = (value) => {
     preferencesDispatch({
@@ -19,7 +22,16 @@ export default function Slider({ category, label }) {
 
   return (
     <div className={styles.sliderWrapper}>
-      <label className={styles.label}>{label}</label>
+      {width >= 800 ? (
+        <button
+          className={styles.label}
+          style={{ backgroundColor: colors[category] }}
+        >
+          {label}
+        </button>
+      ) : (
+        <p className={styles.label}>{label}</p>
+      )}
       <ReactSlider
         className={styles.slider}
         thumbClassName={styles.sliderThumb}
