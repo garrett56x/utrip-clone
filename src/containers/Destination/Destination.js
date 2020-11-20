@@ -85,7 +85,7 @@ export default function Destination() {
 
   // Randomizing order of items to fake sliders
   useEffect(() => {
-    const shuffledItems = items.sort(function (a, b) {
+    const shuffledItems = items.sort(function () {
       return 0.5 - Math.random();
     });
 

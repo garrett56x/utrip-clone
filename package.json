@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack serve",
-    "format": "prettier \"src/**/*.{js,html}\" --write"
+    "format": "prettier \"src/**/*.{js,html}\" --write",
+    "build": "webpack"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
