@@ -16,6 +16,7 @@ import ItemDetails from "../../components/ItemDetails/ItemDetails";
 import Map from "../../components/Map/Map";
 import MobileFilters from "../../components/MobileFilters/MobileFilters";
 import Modal from "../../components/Modal/Modal";
+import Sliders from "../../components/Sliders/Sliders";
 // @ts-ignore
 import pois from "../../data/pois";
 // @ts-ignore
@@ -88,7 +89,7 @@ export default function Destination() {
   return (
     <div>
       <Modal show={showModal} toggle={setShowModal} title="Interests">
-        This is a modal
+        <Sliders />
       </Modal>
       <div
         className={styles.hero}
