@@ -38,12 +38,14 @@
     min-width: 700px;
   }
 
-  .items {
-    padding: 0;
-  }
-
   .gridWrapper.openMap {
     width: 700px;
     padding-right: 10px;
+  }
+}
+
+@media only screen and (min-width: 1230px) {
+  .items {
+    padding: 0;
   }
 }

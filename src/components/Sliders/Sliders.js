@@ -2,7 +2,6 @@ import React from "react";
 import Slider from "./Slider/Slider";
 // @ts-ignore
 import styles from "./Sliders.module.scss";
-import colors from "../../styles/categoryColors";
 
 export default function Sliders() {
   return (
