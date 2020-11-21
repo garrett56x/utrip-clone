@@ -8,7 +8,7 @@ const pois = [
     lng: -122.3878,
     phone: "206-397-4552",
     image:
-      "https://www.myballard.com/wp-content/uploads/53176721_1522338694569748_8692804307189235712_n-750x410.jpg",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/53176721_1522338694569748_8692804307189235712_n-750x410.jpg",
     recommendation: "",
     category: "cuisine",
     phrase: "Great Coffee",
@@ -22,7 +22,7 @@ const pois = [
     lng: -122.36301,
     phone: "206-420-2534",
     image:
-      "https://res.cloudinary.com/sagacity/image/upload/c_crop,h_1333,w_2000,x_0,y_0/c_limit,dpr_3.0,f_auto,fl_lossy,q_80,w_400/brimmer_dpik9p.jpg",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/brimmer_dpik9p.jpg",
     recommendation: "The Bread",
     category: "food",
     phrase: "Brunch",
@@ -36,7 +36,7 @@ const pois = [
     lng: -122.3493,
     phone: "206-905-2100",
     image:
-      "https://engaged.robbinsbrothers.com/wp-content/uploads/2013/09/Seattle-Washington-Space-Needle-1024x768.jpg",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/Seattle-Washington-Space-Needle-1024x768.jpg",
     recommendation: "",
     category: "history",
     phrase: "Awe-inspiring",
@@ -50,7 +50,7 @@ const pois = [
     lng: -122.3505,
     phone: "206-753-4940",
     image:
-      "https://www.chihulygardenandglass.com/img/_1200x630_crop_center-center_82_none/03_exhibtion_rotator_05.jpg?mtime=1554408876",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/03_exhibtion_rotator_05.jpg",
     recommendation: "",
     category: "art",
     phrase: "Studio of Glass",
@@ -64,7 +64,7 @@ const pois = [
     lng: -122.296471,
     phone: "206-602-6863",
     image:
-      "https://fatschickenandwaffles.com/wp-content/uploads/2016/01/slider4.jpg",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/slider4.jpg",
     recommendation: "They make the best bloody mary in Seattle",
     category: "food",
     phrase: "Soul Food",
@@ -78,7 +78,7 @@ const pois = [
     lng: -122.3401,
     phone: "206-682-7181",
     image:
-      "https://cdn.theculturetrip.com/wp-content/uploads/2016/08/pike_place_market_entrance-1024x576.jpg",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/pike_place_market_entrance-1024x576.jpg",
     recommendation: "",
     category: "shopping",
     phrase: "Flying Fish",
@@ -92,7 +92,7 @@ const pois = [
     lng: -122.343887,
     phone: "206-728-9888",
     image:
-      "https://d1ralsognjng37.cloudfront.net/604b24fd-b1c6-4dab-bb94-aee5115ed182",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/a8131894-3d71-4306-870c-d551f19a9537",
     recommendation:
       "They'll give you both regular & spicy crab salad if you ask",
     category: "food",
@@ -107,7 +107,7 @@ const pois = [
     lng: -122.40613,
     phone: "206-420-7545",
     image:
-      "https://infatuation.imgix.net/media/images/reviews/un-bien/SuziPratt_Un%20Bien_Caribbean%20Roast_003.jpg?auto=format&w=256",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/SuziPratt_Un+Bien_Caribbean+Roast_003.jpg",
     recommendation: "Seriously... that sandwich is insane!",
     category: "food",
     phrase: "Caribbean Sandwiches",
@@ -121,7 +121,7 @@ const pois = [
     lng: -122.38712,
     phone: "206-566-6181",
     image:
-      "https://www.seattlemag.com/sites/default/files/field/image/0815barhopalbatross_0.jpg",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/0815barhopalbatross_0.jpg",
     recommendation: "Totchoes",
     category: "food",
     phrase: "Puffy Tacos",
@@ -135,7 +135,7 @@ const pois = [
     lng: -122.384535,
     phone: "206-342-1530",
     image:
-      "https://static.seattletimes.com/wp-content/uploads/2016/08/b91984d4-5e97-11e6-9855-2c62fd83f826-780x516.jpg",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/b91984d4-5e97-11e6-9855-2c62fd83f826-780x516.jpg",
     recommendation: "Ask for a delicious wine pairing",
     category: "food",
     phrase: "Italian Deliciousness",
@@ -148,7 +148,7 @@ const pois = [
     lat: 47.666328,
     lng: -122.383237,
     phone: "206-420-3750",
-    image: "https://www.myballard.com/wp-content/uploads/bar.jpg",
+    image: "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/bar.jpg",
     recommendation: "Hot Skillet Cornbread",
     category: "nightlife",
     phrase: "Craft Cocktails",
@@ -162,7 +162,7 @@ const pois = [
     lng: -122.344933,
     phone: "206-728-6069",
     image:
-      "https://res.cloudinary.com/sagacity/image/upload/v1510784730/BathtubGin9254_eplikm.jpg",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/BathtubGin9254_eplikm.jpg",
     recommendation: "Ask the bartender to mix something up for you",
     category: "nightlife",
     phrase: "Speakeasy",
@@ -176,7 +176,7 @@ const pois = [
     lng: -122.385669,
     phone: "206-453-3792",
     image:
-      "https://res.cloudinary.com/sagacity/image/upload/c_crop,h_410,w_613,x_0,y_101/c_limit,dpr_3.0,f_auto,fl_lossy,q_80,w_400/Screen_Shot_2016-06-01_at_11.48.50_AM_gho8wp.png",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/Screen_Shot_2016-06-01_at_11.48.50_AM_gho8wp.jpeg",
     recommendation: "Add a scoop of ice cream",
     category: "cuisine",
     phrase: "Molten Dessert",
@@ -190,7 +190,7 @@ const pois = [
     lng: -122.385556,
     phone: "206-294-5581",
     image:
-      "https://raster-static.postmates.com/?url=com.postmates.img.prod.s3.amazonaws.com%2F0845e99c-4f03-4343-81c5-a5a0749dea42%2Forig.jpg&quality=85&mode=auto&format=jpg&v=4&w=1200&h=720",
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/download.jpeg",
     recommendation: "Waffle cones",
     category: "cuisine",
     phrase: "Unique Flavors",

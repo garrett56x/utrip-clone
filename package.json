@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack serve",
     "format": "prettier \"src/**/*.{js,html}\" --write",
-    "build": "webpack"
+    "build": "node ./scripts/create-env.js && webpack"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
