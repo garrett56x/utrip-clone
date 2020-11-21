@@ -64,7 +64,9 @@ module.exports = {
       inject: "body",
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new Dotenv(),
+    new Dotenv({
+      systemvars: true,
+    }),
     new CopyPlugin({
       patterns: [{ from: "public" }],
     }),
