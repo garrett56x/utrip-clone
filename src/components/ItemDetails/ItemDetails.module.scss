@@ -54,9 +54,6 @@
   &:not(.favorited) {
     stroke: $favorite;
     fill: transparent;
-    &:hover {
-      fill: $favorite;
-    }
   }
 }
 
@@ -112,6 +109,15 @@
   .details {
     width: calc(100% - 360px);
   }
+
+  .favorite {
+    &:not(.favorited) {
+      &:hover {
+        fill: $favorite;
+      }
+    }
+  }
+
   .mapWrapper {
     display: inline-block;
     margin-left: 10px;
