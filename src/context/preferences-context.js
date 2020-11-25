@@ -17,12 +17,20 @@ function preferencesReducer(state, action) {
       let updatedFilters = [...state.filters];
       if (updatedFilters.indexOf(category) >= 0) {
         updatedFilters.splice(updatedFilters.indexOf(category), 1);
+        if (category === "cuisine") {
+          updatedFilters.splice(updatedFilters.indexOf("food"), 1);
+          updatedFilters.splice(updatedFilters.indexOf("nightlife"), 1);
+        }
       } else {
         updatedFilters.push(category);
+        if (category === "cuisine") {
+          updatedFilters.push("food");
+          updatedFilters.push("nightlife");
+        }
       }
 
       // TODO: Find a more dynamic way of doing this
-      if (updatedFilters.length === 7) {
+      if (updatedFilters.length === 9) {
         updatedFilters = [];
       }
 
