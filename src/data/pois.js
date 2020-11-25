@@ -195,6 +195,20 @@ const pois = [
     category: "cuisine",
     phrase: "Unique Flavors",
   },
+  {
+    name: "Golden Gardens",
+    slug: "golden-gardens",
+    website: "http://www.seattle.gov/parks/find/parks/golden-gardens-park",
+    location: "8498 Seaview Pl NW, Seattle, WA 98117",
+    lat: 47.691921390816916,
+    lng: -122.40309120186858,
+    phone: "206-684-4075",
+    image:
+      "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/golden-gardens.jpg",
+    recommendation: "",
+    category: "nature",
+    phrase: "Bonfires & Sunsets",
+  },
 ];
 
 export default pois;
