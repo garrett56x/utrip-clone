@@ -209,6 +209,19 @@ const pois = [
     category: "nature",
     phrase: "Bonfires & Sunsets",
   },
+  {
+  name: "Ananya Spa",
+  slug: "ananya-spa",
+  website: "http://www.ananyaspaseattle.com/",
+  location: "2810 Elliott Ave, Seattle, WA 98121",
+  lat: 47.6155729905984,
+  lng: -122.35362147306034,
+  phone: "206-217-1744",
+  image: "https://utripclonephotos.s3-us-west-2.amazonaws.com/pois/ananya-spa.jpg",
+  recommendation: "",
+  category: "relaxation",
+  phrase: "Massage",
+},
 ];
 
 export default pois;
