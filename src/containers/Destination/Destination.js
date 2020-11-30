@@ -90,7 +90,7 @@ export default function Destination() {
     });
 
     setItems(shuffledItems);
-  }, [sliders]);
+  }, [sliders, items]);
 
   const { destinationSlug } = useParams();
   useEffect(() => {
