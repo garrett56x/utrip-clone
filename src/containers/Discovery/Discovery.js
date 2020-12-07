@@ -1,8 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Select from "react-select";
 import DestinationCard from "../../components/DestinationCard/DestinationCard";
-// @ts-ignore
-import destinations from "../../data/destinations";
 // @ts-ignore
 import styles from "./Discovery.module.scss";
 import "./Select.scss";
@@ -13,18 +11,32 @@ const scrollToRefObject = (ref) =>
     behavior: "smooth",
   });
 
-const options = [];
-destinations.map((destination) => {
-  options.push({ value: destination.slug, label: destination.city });
-});
-
 export default function Discovery({ history }) {
+  const [destinations, setDestinations] = useState([]);
+  const [options, setOptions] = useState([]);
+
   const destinationsRef = useRef(null);
   const executeScroll = () => scrollToRefObject(destinationsRef);
 
   const handleSelect = (e) => {
     history.push(e.value);
   };
+
+  useEffect(() => {
+    fetch("/api/destinations")
+      .then((response) => response.json())
+      .then((data) => {
+        setDestinations(data);
+        const optionsData = [];
+        data.map((destination) => {
+          optionsData.push({
+            value: destination.slug,
+            label: destination.city,
+          });
+        });
+        setOptions(optionsData);
+      });
+  }, []);
 
   return (
     <div>
