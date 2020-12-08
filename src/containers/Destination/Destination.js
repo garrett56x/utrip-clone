@@ -60,14 +60,12 @@ export default function Destination() {
   }
 
   useEffect(() => {
-    if (destination.slug) {
-      fetch(`/api/destinations/items/${destination.slug}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setItems(data);
-          setFilteredItems(data);
-        });
-    }
+    fetch(`/api/destinationItems/${destination.slug}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setItems(data);
+        setFilteredItems(data);
+      });
   }, [destination]);
 
   useEffect(() => {
