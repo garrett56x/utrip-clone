@@ -19,8 +19,6 @@ import MobileFilters from "../../components/MobileFilters/MobileFilters";
 import Modal from "../../components/Modal/Modal";
 import Sliders from "../../components/Sliders/Sliders";
 // @ts-ignore
-import pois from "../../data/pois";
-// @ts-ignore
 import styles from "./Destination.module.scss";
 import { Room, Tune } from "@material-ui/icons";
 
@@ -38,7 +36,8 @@ export default function Destination() {
   const [showMap, setShowMap] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [search, setSearch] = useState("");
-  const [items, setItems] = useState(pois);
+  const [items, setItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
 
   const { width } = useWindowDimensions();
 
@@ -61,50 +60,46 @@ export default function Destination() {
   }
 
   useEffect(() => {
-    const searchedItems = pois.filter((poi) =>
-      poi.name.toLowerCase().includes(search.toLowerCase())
-    );
-
-    if (favoritesActive) {
-      const favoriteItems = searchedItems.filter(
-        (item) => favorites.indexOf(item.slug) >= 0
-      );
-      setItems(favoriteItems);
-    } else {
-      setItems(searchedItems);
+    if (destination.slug) {
+      fetch(`/api/destinations/items/${destination.slug}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setItems(data);
+          setFilteredItems(data);
+        });
     }
+  }, [destination]);
 
-    if (filters.length) {
-      const filteredItems = pois.filter(
-        (poi) => filters.indexOf(poi.category) >= 0
-      );
+  useEffect(() => {
+    const searchedItems = items.filter((item) => {
+      if (favoritesActive && favorites.indexOf(item.slug) < 0) {
+        return false;
+      }
 
-      setItems(filteredItems);
-    }
-  }, [favorites, favoritesActive, search, filters]);
+      if (filters.length && filters.indexOf(item.category) < 0) {
+        return false;
+      }
+
+      return item.name.toLowerCase().includes(search.toLowerCase());
+    });
+
+    setFilteredItems(searchedItems);
+  }, [items, favorites, favoritesActive, search, filters]);
 
   // Randomizing order of items to fake sliders
   useEffect(() => {
-    const shuffledItems = items.sort(function () {
+    const shuffledItems = filteredItems.sort(function () {
       return 0.5 - Math.random();
     });
 
-    setItems(shuffledItems);
-  }, [sliders, items]);
+    setFilteredItems(shuffledItems);
+  }, [sliders, filteredItems]);
 
   const { destinationSlug } = useParams();
   useEffect(() => {
     destinationDispatch({ type: "change", slug: destinationSlug });
     favoritesDispatch({ type: "fetch", destination: destinationSlug });
   }, [destinationSlug, destinationDispatch, favoritesDispatch]);
-
-  // useEffect(() => {
-  //   if (showModal) {
-  //     document.body.style.overflow = "hidden";
-  //   } else {
-  //     document.body.style.overflow = "";
-  //   }
-  // }, [showModal]);
 
   return (
     <div>
@@ -185,7 +180,7 @@ export default function Destination() {
               }`}
             >
               <ItemGrid
-                items={items}
+                items={filteredItems}
                 columns={columns}
                 showMap={showMap}
                 favoritesGrid={favoritesActive}
@@ -194,7 +189,7 @@ export default function Destination() {
                 <Sticky>
                   {({ style }) => (
                     <div style={{ ...style }}>
-                      <MapWrapper items={items} />
+                      <MapWrapper items={filteredItems} />
                     </div>
                   )}
                 </Sticky>
@@ -202,7 +197,7 @@ export default function Destination() {
             </StickyContainer>
           </Route>
           <Route exact path={`${path}/map`}>
-            <MapWrapper items={items} />
+            <MapWrapper items={filteredItems} />
           </Route>
           <Route path={`${path}/:itemSlug`}>
             <div className={styles.itemDetailsWrapper}>
