@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import GoogleMapReact from "google-map-react";
 import { useFavorites } from "../../context/favorites-context";
-// @ts-ignore
-import pois from "../../data/pois";
+import { useDestination } from "../../context/destination-context";
 // @ts-ignore
 import styles from "./ItemDetails.module.scss";
 import colors from "../../styles/categoryColors";
@@ -22,11 +21,17 @@ import {
 import LinkIcon from "@material-ui/icons/Link";
 
 export default function ItemDetails() {
+  const [item, setItem] = useState({ slug: "" });
   const { itemSlug, destinationSlug } = useParams();
   const { width } = useWindowDimensions();
-  const item = pois.filter((poi) => poi.slug == itemSlug)[0];
   const [favorites, favoritesDispatch] = useFavorites();
   const favorite = favorites.favorites.indexOf(item.slug) >= 0;
+
+  const [destinationState] = useDestination();
+
+  useEffect(() => {
+    setItem(destinationState.items.filter((item) => item.slug === itemSlug)[0]);
+  }, [destinationState.items, itemSlug]);
 
   const toggleFavorite = (e) => {
     e.preventDefault();
@@ -148,7 +153,7 @@ export default function ItemDetails() {
             }}
             defaultZoom={16}
           >
-            {pois.map((poi) => (
+            {destinationState.items.map((poi) => (
               <MapCircle
                 key={poi.slug}
                 lat={poi.lat}

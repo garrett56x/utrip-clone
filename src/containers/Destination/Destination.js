@@ -60,13 +60,9 @@ export default function Destination() {
   }
 
   useEffect(() => {
-    fetch(`/api/destinationItems/${destination.slug}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setItems(data);
-        setFilteredItems(data);
-      });
-  }, [destination]);
+    setItems(destinationState.items);
+    setFilteredItems(destinationState.items);
+  }, [destinationState.items]);
 
   useEffect(() => {
     const searchedItems = items.filter((item) => {
@@ -95,8 +91,13 @@ export default function Destination() {
 
   const { destinationSlug } = useParams();
   useEffect(() => {
-    destinationDispatch({ type: "change", slug: destinationSlug });
+    destinationDispatch({ type: "SET_DESTINATION", slug: destinationSlug });
     favoritesDispatch({ type: "fetch", destination: destinationSlug });
+    fetch(`/api/destinationItems/${destinationSlug}`)
+      .then((response) => response.json())
+      .then((data) => {
+        destinationDispatch({ type: "SET_DESTINATION_ITEMS", items: data });
+      });
   }, [destinationSlug, destinationDispatch, favoritesDispatch]);
 
   return (
