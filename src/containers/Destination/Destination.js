@@ -91,7 +91,11 @@ export default function Destination() {
 
   const { destinationSlug } = useParams();
   useEffect(() => {
-    destinationDispatch({ type: "SET_DESTINATION", slug: destinationSlug });
+    fetch(`/api/destinations/${destinationSlug}`)
+      .then((response) => response.json())
+      .then((data) => {
+        destinationDispatch({ type: "SET_DESTINATION", destination: data });
+      });
     favoritesDispatch({ type: "fetch", destination: destinationSlug });
     fetch(`/api/destinationItems/${destinationSlug}`)
       .then((response) => response.json())

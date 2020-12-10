@@ -13,7 +13,7 @@ const scrollToRefObject = (ref) =>
   });
 
 export default function Discovery({ history }) {
-  const [destinationState] = useDestination();
+  const [destinationState, destinationDispatch] = useDestination();
   const [destinations, setDestinations] = useState([]);
   const [options, setOptions] = useState([]);
 
@@ -25,16 +25,25 @@ export default function Discovery({ history }) {
   };
 
   useEffect(() => {
-    setDestinations(destinationState.destinations);
+    fetch("/api/destinations")
+      .then((response) => response.json())
+      .then((data) => {
+        destinationDispatch({ type: "SET_DESTINATIONS", destinations: data });
+      });
+  }, [destinationDispatch]);
+
+  useEffect(() => {
+    const { destinations } = destinationState;
+    setDestinations(destinations);
     const optionsData = [];
-    destinationState.destinations.map((destination) => {
+    destinations.map((destination) => {
       optionsData.push({
         value: destination.slug,
         label: destination.city,
       });
     });
     setOptions(optionsData);
-  }, [destinationState.destinations]);
+  }, [destinationState]);
 
   return (
     <div>

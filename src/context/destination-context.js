@@ -7,21 +7,7 @@ const DestinationDispatchContext = React.createContext();
 function destinationReducer(state, action) {
   switch (action.type) {
     case "SET_DESTINATION": {
-      let destination = state.destinations.filter(
-        (destination) => destination.slug === action.slug
-      )[0];
-
-      if (!destination) {
-        destination = {
-          slug: "",
-          city: "",
-          state: "",
-          country: "",
-          image: "",
-        };
-      }
-
-      return { ...state, destination };
+      return { ...state, destination: action.destination };
     }
 
     case "SET_DESTINATIONS": {
@@ -49,14 +35,6 @@ function DestinationProvider({ children }) {
     destinations: [],
     items: [],
   });
-
-  useEffect(() => {
-    fetch("/api/destinations")
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch({ type: "SET_DESTINATIONS", destinations: data });
-      });
-  }, []);
 
   return (
     <DestinationStateContext.Provider value={state}>

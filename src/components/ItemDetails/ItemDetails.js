@@ -21,7 +21,18 @@ import {
 import LinkIcon from "@material-ui/icons/Link";
 
 export default function ItemDetails() {
-  const [item, setItem] = useState({ slug: "" });
+  const [item, setItem] = useState({
+    slug: "",
+    name: "",
+    phrase: "",
+    image: "",
+    phone: "",
+    website: "",
+    category: "",
+    location: "",
+    lat: 0,
+    lng: 0,
+  });
   const { itemSlug, destinationSlug } = useParams();
   const { width } = useWindowDimensions();
   const [favorites, favoritesDispatch] = useFavorites();
@@ -30,7 +41,11 @@ export default function ItemDetails() {
   const [destinationState] = useDestination();
 
   useEffect(() => {
-    setItem(destinationState.items.filter((item) => item.slug === itemSlug)[0]);
+    if (destinationState.items.length) {
+      setItem(
+        destinationState.items.filter((item) => item.slug === itemSlug)[0]
+      );
+    }
   }, [destinationState.items, itemSlug]);
 
   const toggleFavorite = (e) => {
@@ -147,7 +162,7 @@ export default function ItemDetails() {
             bootstrapURLKeys={{
               key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
             }}
-            defaultCenter={{
+            center={{
               lat: item.lat,
               lng: item.lng,
             }}
