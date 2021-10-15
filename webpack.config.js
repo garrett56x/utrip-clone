@@ -15,15 +15,15 @@ module.exports = {
   devServer: {
     hot: true,
     historyApiFallback: true,
-    proxy: {
-      "/api": {
-        target: "https://utrip-clone-api.herokuapp.com/",
-        changeOrigin: true,
-        pathRewrite: {
-          "^/api": "",
-        },
-      },
-    },
+    // proxy: {
+    //   "/api": {
+    //     target: "http://localhost:3000/",
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       "^/api": "",
+    //     },
+    //   },
+    // },
   },
   module: {
     rules: [

@@ -25,7 +25,7 @@ export default function Discovery({ history }) {
   };
 
   useEffect(() => {
-    fetch("/api/destinations")
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/destinations`)
       .then((response) => response.json())
       .then((data) => {
         destinationDispatch({ type: "SET_DESTINATIONS", destinations: data });

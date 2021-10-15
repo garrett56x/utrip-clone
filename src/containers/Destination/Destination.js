@@ -91,13 +91,17 @@ export default function Destination() {
 
   const { destinationSlug } = useParams();
   useEffect(() => {
-    fetch(`/api/destinations/${destinationSlug}`)
+    fetch(
+      `${process.env.REACT_APP_API_ENDPOINT}/destinations/${destinationSlug}`
+    )
       .then((response) => response.json())
       .then((data) => {
         destinationDispatch({ type: "SET_DESTINATION", destination: data });
       });
     favoritesDispatch({ type: "fetch", destination: destinationSlug });
-    fetch(`/api/destinationItems/${destinationSlug}`)
+    fetch(
+      `${process.env.REACT_APP_API_ENDPOINT}/destinationItems/${destinationSlug}`
+    )
       .then((response) => response.json())
       .then((data) => {
         destinationDispatch({ type: "SET_DESTINATION_ITEMS", items: data });
