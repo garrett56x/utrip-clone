@@ -17,7 +17,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       "/api": {
-        target: "http://localhost:3000/",
+        target: "https://utrip-clone-api.herokuapp.com/",
         changeOrigin: true,
         pathRewrite: {
           "^/api": "",
